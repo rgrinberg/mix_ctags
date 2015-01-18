@@ -6,6 +6,9 @@ defmodule Mix.Tasks.Ctags do
     p1 = "#{Mix.Project.deps_path}/mix_ctags/#{base}"
     p2 = "./#{base}"
 
+    IO.puts "p1: #{p1}"
+    IO.puts "p2: #{p2}"
+
     cond do
       File.exists? p1 -> {:ok, p1}
       File.exists? p2 -> {:ok, p2}
