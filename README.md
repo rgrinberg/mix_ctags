@@ -1,4 +1,4 @@
-## MixCtags
+## mix_ctags
 
 Mix task to generate tags files for your project using ctags
 
