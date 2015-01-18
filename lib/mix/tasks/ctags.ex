@@ -6,9 +6,6 @@ defmodule Mix.Tasks.Ctags do
     p1 = "#{Mix.Project.deps_path}/mix_ctags/#{base}"
     p2 = "./#{base}"
 
-    IO.puts "p1: #{p1}"
-    IO.puts "p2: #{p2}"
-
     cond do
       File.exists? p1 -> {:ok, p1}
       File.exists? p2 -> {:ok, p2}
@@ -19,7 +16,7 @@ defmodule Mix.Tasks.Ctags do
   @shortdoc "Generate ctags for the project"
   def run(args) do
     case ctags_opt_path do
-      {:ok, p}   -> Mix.Shell.IO.cmd "ctags --options='./lib/ctags_ex' -R ."
+      {:ok, p}   -> Mix.Shell.IO.cmd "ctags --options='#{p}' -R ."
       :not_found -> IO.puts "Cannot find ctags_ex file"
     end
   end
