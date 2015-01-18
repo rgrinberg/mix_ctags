@@ -6,7 +6,7 @@ Mix task to generate tags files for your project using ctags
 
 1. Add this project add as a dependency. For example:
 
-```
+``` elixir
 defp deps do
   [{ :mix_ctags, github: "rgrinberg/mix_ctags" }]
 end
