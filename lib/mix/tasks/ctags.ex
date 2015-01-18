@@ -1,23 +1,21 @@
 defmodule Mix.Tasks.Ctags do
   use Mix.Task
 
-  defp ctags_opt_path do
+  defp possible_paths do
     base = "lib/ctags_ex"
-    p1 = "#{Mix.Project.deps_path}/mix_ctags/#{base}"
-    p2 = "./#{base}"
+    [ "#{Mix.Project.deps_path}/mix_ctags/#{base}",
+      "./#{base}" ] # TODO remove, just for testing
+  end
 
-    cond do
-      File.exists? p1 -> {:ok, p1}
-      File.exists? p2 -> {:ok, p2}
-      true            -> :not_found
-    end
+  defp ctags_command(options_path) do
+    "ctags --options='#{options_path}' -R ."
   end
 
   @shortdoc "Generate ctags for the project"
   def run(args) do
-    case ctags_opt_path do
-      {:ok, p}   -> Mix.Shell.IO.cmd "ctags --options='#{p}' -R ."
-      :not_found -> IO.puts "Cannot find ctags_ex file"
+    case Enum.find(possible_paths, &File.exists?/1) do
+      nil -> IO.puts "Cannot find ctags_ex in #{possible_paths}"
+      p -> p |> ctags_command |> Mix.Shell.IO.cmd
     end
   end
 
