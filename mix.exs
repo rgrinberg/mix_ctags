@@ -5,7 +5,7 @@ defmodule MixCtags.Mixfile do
     [app: :mix_ctags,
      version: "0.0.1",
      elixir: "~> 1.0",
-     deps: deps]
+     deps: deps()]
   end
 
   defp deps do
