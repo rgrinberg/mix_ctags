@@ -12,10 +12,12 @@ defmodule Mix.Tasks.Ctags do
   end
 
   @shortdoc "Generate ctags for the project"
-  def run(args) do
-    case Enum.find(possible_paths, &File.exists?/1) do
-      nil -> IO.puts "Cannot find ctags_ex in #{possible_paths}"
-      p -> p |> ctags_command |> Mix.Shell.IO.cmd
+  def run(_args) do
+    possible_paths()
+    |> Enum.find(&File.exists?/1)
+    |> case() do
+      nil -> IO.puts("Cannot find ctags_ex in #{possible_paths()}")
+      p -> p |> ctags_command() |> Mix.Shell.IO.cmd()
     end
   end
 
